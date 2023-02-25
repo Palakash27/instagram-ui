@@ -4,8 +4,6 @@ import { useAppSelector } from "../app/hook";
 const ProtectedRoute = () => {
     const { userToken } = useAppSelector((state) => state.auth);
 
-    console.log("usertoken ", userToken);
-
     // show unauthorized screen if no user is found in redux store
     if (!userToken) {
         return (
