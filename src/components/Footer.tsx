@@ -9,6 +9,7 @@ const Footer = () => {
         <StyledFooter>
             <nav className="container navigation">
                 <NavLink to="/">Home</NavLink>
+                <NavLink to="/explore">Explore</NavLink>
                 <NavLink to="/user-profile">{userInfo?.username}</NavLink>
             </nav>
         </StyledFooter>

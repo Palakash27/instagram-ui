@@ -7,6 +7,7 @@ import Home from "./pages/Home";
 import ProtectedRoute from "./routing/ProtectedRoute";
 import Footer from "./components/Footer";
 import { useAppSelector } from "./app/hook";
+import Explore from "./pages/Explore";
 
 function App() {
     const { userToken } = useAppSelector((state) => state.auth);
@@ -20,6 +21,7 @@ function App() {
                     <Route path="/register" element={<Signup />} />
                     <Route element={<ProtectedRoute />}>
                         <Route path="/" element={<Home />} />
+                        <Route path="/explore" element={<Explore />} />
                         <Route path="/user-profile" element={<Profile />} />
                     </Route>
                 </Routes>

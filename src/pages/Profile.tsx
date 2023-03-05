@@ -1,24 +1,13 @@
-import { useEffect } from "react";
+import { useOutletContext } from "react-router-dom";
 import styled from "styled-components";
 import { useAppSelector, useAppDispatch } from "../app/hook";
-import { useGetUserDetailsQuery } from "../app/services/auth/authService";
-import { setCredentials } from "../features/auth/authSlice";
 import { logout } from "../features/auth/authSlice";
 
 const Profile = () => {
     const { userInfo } = useAppSelector((state) => state.auth);
     const dispatch = useAppDispatch();
-    // automatically authenticate user if token is found
-    const { data, isFetching } = useGetUserDetailsQuery("userDetails", {
-        // perform a refetch every 15mins
-        pollingInterval: 900000,
-    });
+    const isFetching = useOutletContext();
 
-    useEffect(() => {
-        if (data) dispatch(setCredentials(data));
-    }, [data, dispatch]);
-
-    console.log(userInfo);
     return (
         <ProfileContainer>
             {isFetching ? (
