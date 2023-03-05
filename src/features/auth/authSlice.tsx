@@ -1,11 +1,19 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { registerUser, userLogin } from "./authActions";
 
+export interface Post {
+    _id: string;
+    content: string;
+}
+
 export interface UserInfo {
     _id: string;
     fullName: string;
     email: string;
     username: string;
+    about: string;
+    pronouns: string;
+    posts: Post[];
     __v: number;
 }
 

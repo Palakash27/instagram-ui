@@ -95,16 +95,14 @@ const StyledForm = styled.form`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 100vh;
-    max-width: 50vw;
-    margin: 0 auto;
-    border: 1px solid red;
+    height: 100%;
+
     .form-group {
         display: flex;
         flex-direction: column;
         align-items: flex-start;
         justify-content: center;
-        width: 100%;
+        width: 90%;
         margin: 1rem 0;
     }
     h1 {
@@ -133,7 +131,7 @@ const StyledForm = styled.form`
         background-color: #fafafa;
     }
     button {
-        width: 100%;
+        width: 90%;
         height: 3rem;
         margin: 1rem;
         border: none;

@@ -1,20 +1,17 @@
-import { NavLink, Outlet } from "react-router-dom";
+import { useEffect } from "react";
+import { Outlet, useNavigate } from "react-router-dom";
 import { useAppSelector } from "../app/hook";
 
 const ProtectedRoute = () => {
     const { userToken } = useAppSelector((state) => state.auth);
-
+    const navigate = useNavigate();
     // show unauthorized screen if no user is found in redux store
-    if (!userToken) {
-        return (
-            <div className="unauthorized">
-                <h1>Unauthorized :D</h1>
-                <span>
-                    <NavLink to="/login">Login</NavLink> to gain access
-                </span>
-            </div>
-        );
-    }
+
+    useEffect(() => {
+        if (!userToken) {
+            navigate("/login");
+        }
+    }, [userToken, navigate]);
 
     // returns child route elements
     return <Outlet />;
