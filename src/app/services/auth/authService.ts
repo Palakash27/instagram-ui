@@ -1,5 +1,6 @@
 // React-specific entry point to allow generating React hooks
 import { createApi } from "@reduxjs/toolkit/query/react";
+import { DetailedUserInfo } from "../../../features/auth/authSlice";
 import customFetchBase from "./customFetchBase";
 
 export const authApi = createApi({
@@ -12,7 +13,14 @@ export const authApi = createApi({
                 method: "GET",
             }),
         }),
+        searchUsers: builder.query<DetailedUserInfo[], string>({
+            query: (searchTerm) => ({
+                url: `api/user/search?query=${searchTerm}`,
+                method: "GET",
+            }),
+            keepUnusedDataFor: 0,
+        }),
     }),
 });
 
-export const { useGetUserDetailsQuery } = authApi;
+export const { useGetUserDetailsQuery, useSearchUsersQuery } = authApi;

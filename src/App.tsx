@@ -1,5 +1,4 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import Header from "./components/Header";
 import Login from "./pages/Login";
 import Signup from "./pages/Signup";
 import Profile from "./pages/Profile";
@@ -8,13 +7,13 @@ import ProtectedRoute from "./routing/ProtectedRoute";
 import Footer from "./components/Footer";
 import { useAppSelector } from "./app/hook";
 import Explore from "./pages/Explore";
+import SearchBar from "./pages/SearchBar";
 
 function App() {
     const { userToken } = useAppSelector((state) => state.auth);
 
     return (
         <Router>
-            {userToken && <Header />}
             <main>
                 <Routes>
                     <Route path="/login" element={<Login />} />
@@ -22,6 +21,7 @@ function App() {
                     <Route element={<ProtectedRoute />}>
                         <Route path="/" element={<Home />} />
                         <Route path="/explore" element={<Explore />} />
+                        <Route path="/explore/search" element={<SearchBar />} />
                         <Route path="/user-profile" element={<Profile />} />
                     </Route>
                 </Routes>
