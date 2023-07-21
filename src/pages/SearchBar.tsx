@@ -6,9 +6,16 @@ import { useDebounce } from "../utils/hooks";
 
 export default function SearchBar() {
     const [searchText, setSearchText] = useState("");
+    const inputRef = React.useRef<HTMLInputElement>(null);
     const navigate = useNavigate();
 
     const debouncedSearchText = useDebounce(searchText);
+
+    const handleCrossBtn = () => {
+        setSearchText("");
+        inputRef.current?.focus();
+    };
+
     return (
         <StyledSearchBar>
             <div className="search">
@@ -18,8 +25,17 @@ export default function SearchBar() {
                     autoFocus
                     onChange={(e) => setSearchText(e.target.value)}
                     value={searchText}
+                    ref={inputRef}
                 />
-                <button onClick={() => navigate("/explore")}>Cancel</button>
+                <button className="cross-btn" onClick={handleCrossBtn}>
+                    x
+                </button>
+                <button
+                    className="cancel-btn"
+                    onClick={() => navigate("/explore")}
+                >
+                    Cancel
+                </button>
             </div>
             <SearchTextResults searchText={debouncedSearchText} />
             {/* <div>recent people</div> */}
@@ -34,6 +50,7 @@ const StyledSearchBar = styled.div`
     .search {
         display: flex;
         height: 3%;
+        position: relative;
         input {
             width: 100%;
             height: 2rem;
@@ -43,46 +60,30 @@ const StyledSearchBar = styled.div`
             font-size: 1rem;
             font-weight: 400;
             background-color: #fafafa;
+            text-align: center;
+            transition: text-align 0.5s ease;
         }
-        button {
+        input:focus {
+            text-align: left;
+        }
+        .cross-btn {
+            border: none;
+            background-color: #fafafa;
+            color: black;
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 0 0 0 0.5rem;
+            position: absolute;
+            right: 15%;
+            top: 25%;
+        }
+        .cancel-btn {
             border: none;
             background-color: #fff;
             color: #0095f6;
             font-size: 1rem;
             font-weight: 400;
             padding: 0 0 0 0.5rem;
-        }
-    }
-    .user-list {
-        margin: 0;
-        padding: 0;
-        list-style: none;
-        height: 95%;
-        .user-item {
-            display: flex;
-            align-items: center;
-            padding: 0.5rem 0;
-            img {
-                width: 50px;
-                height: 50px;
-                border-radius: 50%;
-                border: 1px solid #dbdbdb;
-                margin: 0 1rem;
-            }
-            .username {
-                p {
-                    margin: 0;
-                    font-size: 1rem;
-                    font-weight: 400;
-                }
-                p:first-child {
-                    font-weight: 600;
-                }
-                p:last-child {
-                    font-weight: 400;
-                    color: #8e8e8e;
-                }
-            }
         }
     }
 `;

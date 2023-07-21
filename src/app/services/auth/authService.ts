@@ -7,9 +7,9 @@ export const authApi = createApi({
     reducerPath: "authApi",
     baseQuery: customFetchBase,
     endpoints: (builder) => ({
-        getUserDetails: builder.query({
-            query: () => ({
-                url: "api/user/profile",
+        getLoggedInUserDetails: builder.query({
+            query: (username) => ({
+                url: `api/user/profile/${username}`,
                 method: "GET",
             }),
         }),
@@ -23,4 +23,4 @@ export const authApi = createApi({
     }),
 });
 
-export const { useGetUserDetailsQuery, useSearchUsersQuery } = authApi;
+export const { useGetLoggedInUserDetailsQuery, useSearchUsersQuery } = authApi;

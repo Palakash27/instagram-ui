@@ -10,7 +10,9 @@ const Footer = () => {
             <nav className="container navigation">
                 <NavLink to="/">Home</NavLink>
                 <NavLink to="/explore">Explore</NavLink>
-                <NavLink to="/user-profile">{userInfo?.username}</NavLink>
+                <NavLink to={`/${userInfo?.username}`}>
+                    {userInfo?.username}
+                </NavLink>
             </nav>
         </StyledFooter>
     );
@@ -33,6 +35,7 @@ const StyledFooter = styled.footer`
     align-items: inherit;
     height: 3rem;
     border-top: 2px solid #dbdbdb;
+    background-color: #fafafa;
     nav {
         display: flex;
         justify-content: space-around;
