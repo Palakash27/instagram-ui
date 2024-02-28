@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useOutletContext, useParams } from "react-router-dom";
 import styled from "styled-components";
 import { useAppSelector, useAppDispatch } from "../app/hook";
@@ -6,16 +6,32 @@ import { useGetLoggedInUserDetailsQuery } from "../app/services/auth/authService
 import { logout } from "../features/auth/authSlice";
 
 const Profile = () => {
-    const { userInfo } = useAppSelector((state) => state.auth);
+    const { userInfo: signedInUserInfo } = useAppSelector(
+        (state) => state.auth
+    );
+    const isSignedInUserInfoFetching = useOutletContext();
+    const [userInfo, setUserInfo] = useState(signedInUserInfo);
+    const [isFetching, setIsFetching] = useState(isSignedInUserInfoFetching);
     const dispatch = useAppDispatch();
-    const isFetching = useOutletContext();
     let { username } = useParams();
-    if (userInfo?.username !== username) {
-        const { data, isFetching } = useGetLoggedInUserDetailsQuery(
-            userInfo?.username
-        );
-    }
-    useEffect(() => {}, []);
+    const { data: newUserInfo, isFetching: isNewUserInfoFetching } =
+        useGetLoggedInUserDetailsQuery(username);
+
+    useEffect(() => {
+        if (signedInUserInfo && signedInUserInfo.username === username) {
+            setUserInfo(signedInUserInfo);
+            setIsFetching(isSignedInUserInfoFetching);
+        } else {
+            setUserInfo(newUserInfo);
+            setIsFetching(isNewUserInfoFetching);
+        }
+    }, [
+        isSignedInUserInfoFetching,
+        signedInUserInfo,
+        username,
+        newUserInfo,
+        isNewUserInfoFetching,
+    ]);
 
     return (
         <ProfileContainer>
@@ -55,7 +71,7 @@ const Profile = () => {
                         <p>{userInfo?.about}</p>
                     </div>
                     <div className="profile-buttons">
-                        {username === userInfo?.username ? (
+                        {username === signedInUserInfo?.username ? (
                             <>
                                 <button>Edit profile</button>
                                 <button>Share Profile</button>
