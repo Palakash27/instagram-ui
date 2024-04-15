@@ -48,6 +48,10 @@ const Login = () => {
             <button type="submit" className="button" disabled={loading}>
                 {loading ? "Loading..." : "Login"}
             </button>
+
+            <p>
+                Don't have an account? <a href="/signup">Sign Up</a>
+            </p>
         </StyledForm>
     );
 };

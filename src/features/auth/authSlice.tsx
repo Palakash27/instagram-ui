@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { registerUser, userLogin } from "./authActions";
+import { signUpUser, userLogin } from "./authActions";
 
 export interface Post {
     _id: string;
@@ -59,16 +59,16 @@ const authSlice = createSlice({
         },
     },
     extraReducers: (builder) => {
-        // register user
-        builder.addCase(registerUser.pending, (state) => {
+        // signup user
+        builder.addCase(signUpUser.pending, (state) => {
             state.loading = true;
             state.error = null;
         });
-        builder.addCase(registerUser.fulfilled, (state) => {
+        builder.addCase(signUpUser.fulfilled, (state) => {
             state.loading = false;
             state.success = true; // registration successful
         });
-        builder.addCase(registerUser.rejected, (state, { payload }) => {
+        builder.addCase(signUpUser.rejected, (state, { payload }) => {
             state.loading = false;
             state.error = payload as string;
         });

@@ -1,10 +1,10 @@
-// RegisterScreen.js
+// SignUp Screen.js
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 import { useNavigate } from "react-router-dom";
 // import Error from "../components/Error";
-import { registerUser } from "../features/auth/authActions";
+import { signUpUser } from "../features/auth/authActions";
 import { useAppSelector, useAppDispatch } from "../app/hook";
 import styled from "styled-components";
 import Error from "../components/Error";
@@ -31,7 +31,7 @@ const Signup = () => {
         }
         // transform email string to lowercase to avoid case sensitivity issues in login
         data.email = data.email.toLowerCase();
-        dispatch(registerUser(data));
+        dispatch(signUpUser(data));
     };
 
     return (
@@ -83,8 +83,11 @@ const Signup = () => {
                 />
             </div>
             <button type="submit" className="button">
-                Login
+                Sign Up
             </button>
+            <p>
+                Have have an account? <a href="/login">Login</a>
+            </p>
         </StyledForm>
     );
 };
@@ -108,11 +111,6 @@ const StyledForm = styled.form`
     h1 {
         font-size: 3rem;
         font-weight: 600;
-    }
-    p {
-        font-size: 1.5rem;
-        font-weight: 400;
-        margin: 1rem 0;
     }
     form {
         display: flex;
